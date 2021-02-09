@@ -4,9 +4,9 @@
     <h1>Fitxa del llibre</h1>
     {% if llibre %}
     <ul>
-        <li>{{llibre.titol}}</li>
-        <li>{{llibre.autor}}</li>
-        <li>{{llibre.pagines}}</li>
+        <li>Titol: {{llibre.titol}}</li>
+        <li>Autor: {{llibre.autor}}</li>
+        <li>Pàgines: {{llibre.pagines}}</li>
     </ul>
     {% else %}
     <img class="imatge" src="{{ asset('img/lupa.png') }}" alt="libros">
