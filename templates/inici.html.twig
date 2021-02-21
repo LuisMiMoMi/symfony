@@ -7,7 +7,10 @@
     <p>Curs 20/21</p>
     <ul>
     {% for llibre in llibres %}
-        <li><a href="{{path('fitxa_llibre', {'isbn': llibre.isbn})}}">{{llibre.titol}}</a></li><br>
+        <li>
+        <a href="{{path('fitxa_llibre', {'isbn': llibre.isbn})}}">{{llibre.titol}}</a>
+        <a href="{{path('editar_llibre', {'isbn': llibre.isbn})}}"><img  style="width: 30px;" src="{{ asset('img/lapiz.png') }}" alt="lapiz"></a>
+        </li><br>
     {% endfor %}
     </ul>
 {% endblock %}

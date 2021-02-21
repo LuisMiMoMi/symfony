@@ -3,8 +3,15 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Llibre;
 use App\Entity\Editorial;
+use App\Form\LlibreType;
 
 class LlibreController extends AbstractController
 {
@@ -12,21 +19,7 @@ class LlibreController extends AbstractController
     /**
      * @Route("/llibre/inserir", name="inserir_llibre")
     */
-    public function inserir(){
-        /*$entityManager = $this->getDoctrine()->getManager();
-        $llibre = new Llibre();
-        $llibre->setIsbn("7777SSSS");
-        $llibre->setTitol("Noruega");
-        $llibre->setAutor("Rafa Lahuerta");
-        $llibre->setPagines(387);
-        $entityManager->persist($llibre);
-        try {
-            $entityManager->flush();
-            return new Response("Llibre inserit amb isbn ".$llibre->getIsbn());
-        } catch (\Exception $e) {
-            return new Response("Error inserint llibre amb isbn ".$llibre->getIsbn());
-        }*/
-        //$entityManager = $this->getDoctrine()->getManager();
+    public function inserir(){ 
         $llibres = array(
             'llibre1' => array(
                 'isbn' => "6666FFFF",
@@ -93,7 +86,27 @@ class LlibreController extends AbstractController
             return new Response("Error inserint llibre i editorial amb isbn ".$llibre->getIsbn());
         }
     }
-    
+    /**
+    * @Route("/llibre/nou", name="nou_llibre")
+    */
+    public function nou(Request $request){
+        $llibre = new Llibre();
+        $formulari = $this->createForm(LlibreType::class, $llibre);
+        $formulari->handleRequest($request);
+        if ($formulari->isSubmitted() && $formulari->isValid()) {
+            $llibre = $formulari->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($llibre);
+            try {
+                $entityManager->flush();
+                return $this->redirectToRoute('inici');
+            } catch (\Exception $e) {
+                return $this->render('nou.html.twig', array('formulari' => $formulari->createView()));
+            }
+            
+        }
+        return $this->render('nou.html.twig', array('formulari' => $formulari->createView()));
+    }
 
     /**
     * @Route("/llibre/{isbn}", name="fitxa_llibre")
@@ -109,6 +122,7 @@ class LlibreController extends AbstractController
         }
         
     }
+    
 
     /**
     * @Route("/llibre/pagines/{pagines}", name="pagines_llibres")
@@ -122,6 +136,29 @@ class LlibreController extends AbstractController
         } else {
             return $this->render('inici.html.twig', array('llibres' => null));
         }
+    }
+
+    /**
+    * @Route("/llibre/editar/{isbn}", name="editar_llibre")
+    */
+    public function editar(Request $request, $isbn){
+        $repositori = $this->getDoctrine()->getRepository(Llibre::class);
+        $llibre = $repositori->find($isbn);
+        $formulari = $this->createForm(LlibreType::class, $llibre);
+        $formulari->handleRequest($request);
+        if ($formulari->isSubmitted() && $formulari->isValid()) {
+            $llibre = $formulari->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($llibre);
+            try {
+                $entityManager->flush();
+                return $this->redirectToRoute('inici');
+            } catch (\Exception $e) {
+                return $this->render('nou.html.twig', array('formulari' => $formulari->createView()));
+            }
+            
+        }
+        return $this->render('nou.html.twig', array('formulari' => $formulari->createView()));
     }
 }
 ?>
