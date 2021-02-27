@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestió d'usuaris{% endblock %}
+{% block body %}
+<h1>Usuaris de la biblioteca Luis</h1>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Login</th>
+      <th scope="col">Password</th>
+      <th scope="col">Email</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for usu in usuaris %}
+        <tr>
+            <th scope="row">{{usu.id}}</th>
+            <td>{{usu.login}}</td>
+            <td>{{usu.password}}</td>
+            <td>{{usu.email}}</td>
+            <td>{{usu.rol}}</td>
+            <td><a href="{{path('editar_usuari', {'id': usu.id})}}"><img  style="width: 30px;" src="{{ asset('img/lapiz.png') }}" alt="lapiz"></a></td>
+            <td><a href="{{path('eliminar_usuari', {'id': usu.id})}}"><img  style="width: 30px;" src="{{ asset('img/papelera.png') }}" alt="papelera"></a></td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{{path('nou_usuari')}}">Crear nou usuari</a>
+{% endblock %}

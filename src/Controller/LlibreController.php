@@ -90,6 +90,7 @@ class LlibreController extends AbstractController
     * @Route("/llibre/nou", name="nou_llibre")
     */
     public function nou(Request $request){
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Acces denied');
         $llibre = new Llibre();
         $formulari = $this->createForm(LlibreType::class, $llibre);
         $formulari->handleRequest($request);
@@ -142,6 +143,7 @@ class LlibreController extends AbstractController
     * @Route("/llibre/editar/{isbn}", name="editar_llibre")
     */
     public function editar(Request $request, $isbn){
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Accés restringit a administradors');
         $repositori = $this->getDoctrine()->getRepository(Llibre::class);
         $llibre = $repositori->find($isbn);
         $formulari = $this->createForm(LlibreType::class, $llibre);

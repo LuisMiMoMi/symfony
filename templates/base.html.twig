@@ -18,6 +18,14 @@
         <a href="{{path('inici')}}">Inici</a>
         <span> - </span>
         <a href="{{path('nou_llibre')}}">Nou llibre</a>
+        {% if is_granted('ROLE_USER') %}
+            <span> - Benvingut a la biblioteca - </span>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href ="{{ path('gestio_usuaris') }}">Gestió d'usuaris</a>
+                <span> - </span>
+            {% endif %}
+            <a href ="{{ path('logout') }}">Tancar sessió</a>
+        {% endif %}
         {% block body %}{% endblock %}
     </body>
 </html>
