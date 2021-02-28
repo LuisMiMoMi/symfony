@@ -33,6 +33,7 @@ security:
         - { path: ^/, roles: ROLE_USER }
         - { path: ^/llibre/nou, roles: ROLE_ADMIN }
         - { path: ^/llibre/editar, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
     encoders:
         App\Entity\Usuari:
             algorithm: bcrypt

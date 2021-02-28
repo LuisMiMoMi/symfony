@@ -78,11 +78,23 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
+    "easycorp/easyadmin-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "b131e6cbfe1b898a508987851963fff485986285"
+        }
+    },
     "egulias/email-validator": {
         "version": "2.1.25"
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
+    },
+    "jenssegers/date": {
+        "version": "v4.0.0"
     },
     "laminas/laminas-code": {
         "version": "4.0.0"
@@ -95,6 +107,9 @@
     },
     "monolog/monolog": {
         "version": "2.2.0"
+    },
+    "nesbot/carbon": {
+        "version": "2.45.1"
     },
     "nikic/php-parser": {
         "version": "v4.10.4"
@@ -371,6 +386,9 @@
     "symfony/polyfill-php80": {
         "version": "v1.22.0"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.22.1"
+    },
     "symfony/process": {
         "version": "v5.2.2"
     },
@@ -477,6 +495,9 @@
     },
     "symfony/twig-pack": {
         "version": "v1.0.1"
+    },
+    "symfony/uid": {
+        "version": "v5.2.3"
     },
     "symfony/validator": {
         "version": "4.3",

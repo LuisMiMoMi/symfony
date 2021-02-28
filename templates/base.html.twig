@@ -23,6 +23,8 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <a href ="{{ path('gestio_usuaris') }}">Gestió d'usuaris</a>
                 <span> - </span>
+                <a href ="{{ path('admin') }}">Easy Admin</a>
+                <span> - </span>
             {% endif %}
             <a href ="{{ path('logout') }}">Tancar sessió</a>
         {% endif %}
